@@ -1,1 +1,0 @@
-export { postForm } from "./post";

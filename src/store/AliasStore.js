@@ -1,22 +1,20 @@
 import { decorate, observable } from "mobx";
 import axios from "axios";
 
-
 class AliasStore {
   constructor() {
-    this.alias = "";
-    this.description = "";
-    this.email = "";
+    this.statusMessage = "";
   }
 
   submitToBackend(data) {
-    axios.post("http://127.0.0.1:8000/alias/", data)
+    axios
+      .post("http://127.0.0.1:8000/alias/", data)
       .then(res => {
         console.log(res);
       })
       .catch(err => {
-        console.error(err.response.data)
-      })
+        console.error(err.response.data);
+      });
   }
 }
 

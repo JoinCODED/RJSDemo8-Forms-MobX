@@ -7,26 +7,12 @@ import * as actionCreatores from "./store/actions/index";
 class ControlledForm extends Component {
   constructor() {
     super();
-    this.state = {
-    };
+    this.state = {};
   }
 
   render() {
-    return (
-    );
+    return <div />;
   }
 }
 
-const mapStateToProps = state => {
-  return {
-  };
-};
-const mapDispatchToProps = dispatch => {
-  return {
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ControlledForm);
+export default ControlledForm;
