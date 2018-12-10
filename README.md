@@ -66,6 +66,12 @@ this.setState({ [e.target.name]: e.target.value });
 }
 ```
 
+4.  Add the textChange method to the input elements:
+
+```javascript
+onChange={e => this.textChange(e)}
+```
+
 4.  In `AliasStore.js` create the form action to be dispatched
 
 ```javascript
@@ -74,6 +80,7 @@ this.setState({ [e.target.name]: e.target.value });
       .post("http://127.0.0.1:8000/alias/", form)
       .then(res => {
         this.statusMessage = "Success"
+        this.data.push(res.data)
       })
       .catch(err => {this.statusMessage = err.response});
   }
@@ -85,12 +92,16 @@ Add the `onSubmit` in the form tag
 
 ```javascript
 ...
+this.submission = this.submission.bind(this)
+...
+
 submission(e) {
-e.preventDefault();
-store.postForm(this.state);
+  e.preventDefault();
+  store.postForm(this.state);
 }
 ...
-<form onSubmit={this.submission.bind(this)}>
+
+<form onSubmit={e => this.submission(e)}>
 ...
 </form>
 
