@@ -3,23 +3,25 @@ import axios from "axios";
 
 class AliasStore {
   constructor() {
-    this.data = [];
     this.statusMessage = "";
+    this.aliases = [];
   }
 
-  getForm() {
+  fetchList() {
     axios
       .get("http://127.0.0.1:8000/alias/")
       .then(res => res.data)
-      .then(data => (this.data = data))
-      .catch(err => console.error(err.response));
+      .then(data => (this.aliases = data))
+      .catch(err => {
+        console.error(err.response);
+      });
   }
 
   postForm(data) {
     axios
       .post("http://127.0.0.1:8000/alias/", data)
       .then(res => {
-        console.log(res);
+        this.aliases.push(res.data);
       })
       .catch(err => {
         console.error(err.response);
@@ -28,10 +30,8 @@ class AliasStore {
 }
 
 decorate(AliasStore, {
-  alias: observable,
-  description: observable,
-  email: observable,
-  errors: observable
+  statusMessage: observable,
+  aliases: observable
 });
 
 export default new AliasStore();
