@@ -2,13 +2,14 @@ import { observable, decorate } from "mobx";
 import axios from "axios";
 
 class AliasStore {
-  data = [];
+  aliases = [];
   statusMessage = "";
 
   fetchList = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/alias/");
-      this.aliases = res.data;
+      const aliases = res.data;
+      this.aliases = aliases;
     } catch (err) {
       console.error(err);
     }
@@ -18,7 +19,7 @@ class AliasStore {
     axios
       .post("http://127.0.0.1:8000/alias/", data)
       .then(res => {
-        console.log(res);
+        this.aliases.push(res.data);
       })
       .catch(err => {
         console.error(err.response);
