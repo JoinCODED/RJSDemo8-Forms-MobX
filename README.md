@@ -3,6 +3,7 @@
 [Slides](https://docs.google.com/presentation/d/1VNDFN2oIkKLUpKRZ7hkiRjyJTv3d7-Lp6eZJPZn2P5E/edit?usp=sharing)
 
 1.  Clone and backend and run the server
+
 2.  Add the form in `ControlledForm.js`
 
 ```javascript
@@ -72,7 +73,7 @@ this.setState({ [e.target.name]: e.target.value });
 onChange={e => this.textChange(e)}
 ```
 
-4.  In `AliasStore.js` create the form action to be dispatched
+5.  In `AliasStore.js` create the form action to be dispatched
 
 ```javascript
   postForm(form){
@@ -80,13 +81,12 @@ onChange={e => this.textChange(e)}
       .post("http://127.0.0.1:8000/alias/", form)
       .then(res => {
         this.statusMessage = "Success"
-        this.data.push(res.data)
       })
       .catch(err => {this.statusMessage = err.response});
   }
 ```
 
-5.  Submit the form
+6.  Submit the form
 
 Add the `onSubmit` in the form tag
 
@@ -105,5 +105,13 @@ submission(e) {
 ...
 </form>
 
+...
+```
+
+7.  Add the new data to the displayed list:
+
+```javascript
+...
+this.data.push(res.data)
 ...
 ```
