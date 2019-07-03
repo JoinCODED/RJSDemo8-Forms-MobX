@@ -7,26 +7,23 @@ class AliasStore {
     this.aliases = [];
   }
 
-  fetchList() {
-    axios
-      .get("http://127.0.0.1:8000/alias/")
-      .then(res => res.data)
-      .then(data => (this.aliases = data))
-      .catch(err => {
-        console.error(err.response);
-      });
-  }
+  fetchList = async () => {
+    try {
+      const res = await axios.get("http://127.0.0.1:8000/alias/");
+      this.aliases = res.data;
+    } catch (err) {
+      console.error(err.response);
+    }
+  };
 
-  postForm(data) {
-    axios
-      .post("http://127.0.0.1:8000/alias/", data)
-      .then(res => {
-        this.aliases.push(res.data);
-      })
-      .catch(err => {
-        console.error(err.response);
-      });
-  }
+  postForm = async data => {
+    try {
+      const res = await axios.post("http://127.0.0.1:8000/alias/", data);
+      this.aliases.push(res.data);
+    } catch (err) {
+      console.error(err.response);
+    }
+  };
 }
 
 decorate(AliasStore, {

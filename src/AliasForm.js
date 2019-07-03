@@ -3,29 +3,25 @@ import "./App.css";
 
 import store from "./store/AliasStore";
 
-class ControlledForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      alias: "",
-      description: "",
-      email: ""
-    };
-    this.textChange = this.textChange.bind(this);
-  }
+class AliasForm extends Component {
+  state = {
+    alias: "",
+    description: "",
+    email: ""
+  };
 
-  textChange(e) {
+  handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
-  }
+  };
 
-  submission(e) {
+  handleSubmit = e => {
     e.preventDefault();
     store.postForm(this.state);
-  }
+  };
 
   render() {
     return (
-      <form onSubmit={e => this.submission(e)}>
+      <form onSubmit={e => this.handleSubmit(e)}>
         <div className="input-group mb-3">
           <div className="input-group-prepend">
             <span className="input-group-text">Alias*</span>
@@ -34,7 +30,7 @@ class ControlledForm extends Component {
             type="text"
             className="form-control"
             name="alias"
-            onChange={e => this.textChange(e)}
+            onChange={e => this.handleChange(e)}
           />
         </div>
         <div className="input-group mb-3">
@@ -45,7 +41,7 @@ class ControlledForm extends Component {
             type="text"
             className="form-control"
             name="description"
-            onChange={e => this.textChange(e)}
+            onChange={e => this.handleChange(e)}
           />
         </div>
         <div className="input-group mb-3">
@@ -56,7 +52,7 @@ class ControlledForm extends Component {
             type="text"
             className="form-control"
             name="email"
-            onChange={e => this.textChange(e)}
+            onChange={e => this.handleChange(e)}
           />
         </div>
         <input type="submit" /> <br />
@@ -65,4 +61,4 @@ class ControlledForm extends Component {
   }
 }
 
-export default ControlledForm;
+export default AliasForm;
