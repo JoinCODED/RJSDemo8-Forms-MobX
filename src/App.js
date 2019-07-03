@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import store from "./store/AliasStore";
-import ControlledForm from "./ControlledForm";
+import aliasStore from "./store/AliasStore";
+import AliasForm from "./AliasForm";
 import AliasList from "./AliasList";
 
 class App extends Component {
   componentDidMount() {
-    store.fetchList();
+    aliasStore.fetchList();
   }
   render() {
     return (
       <div className="container">
-        <ControlledForm />
+        <AliasForm />
         <AliasList />
       </div>
     );
