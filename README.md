@@ -117,6 +117,6 @@ handleSubmit = e => {
 
 ```javascript
 ...
-this.data.push(res.data)
+this.aliases.push(res.data)
 ...
 ```
