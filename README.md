@@ -12,7 +12,7 @@
             <form>
                 <div className="input-group mb-3">
                     <div className="input-group-prepend">
-                    <span className="input-group-text">Alias*</span>
+                        <span className="input-group-text">Alias*</span>
                     </div>
                         <input
                             type="text"
@@ -20,7 +20,7 @@
                             name="alias"
                             />
                             </div>
-                        <div className="input-group mb-3">
+                <div className="input-group mb-3">
                             <div className="input-group-prepend">
                             <span className="input-group-text">Description</span>
                             </div>
@@ -30,7 +30,7 @@
                             name="description"
                             />
                             </div>
-                    <div className="input-group mb-3">
+                <div className="input-group mb-3">
                         <div className="input-group-prepend">
                         <span className="input-group-text">E-Mail*</span>
                         </div>
@@ -39,30 +39,25 @@
                         className="form-control"
                         name="email"
                         />
-                        </div>
-                        <input type="submit" /> <br />
-                        </form>
-                        );
-                        }
-                    }
+                </div>
+                <input type="submit" /> <br />
+            </form>
+        );
+    }
 ```
 
 3.  Bind the form inputs to state
 
 ```javascript
 class ControlledForm extends Component {
-    constructor(props) {
-    super(props);
-    this.state = {
+    state = {
       alias: "",
       description: "",
       email: ""
     };
-      this.textChange = this.textChange.bind(this);
-    }
 
     ...
-textChange(e) {
+textChange = (e) => {
 this.setState({ [e.target.name]: e.target.value });
 }
 ```
@@ -76,13 +71,13 @@ onChange={e => this.textChange(e)}
 5.  In `AliasStore.js` create the form action to be dispatched
 
 ```javascript
-  postForm(form){
-    axios
-      .post("http://127.0.0.1:8000/alias/", form)
-      .then(res => {
-        this.statusMessage = "Success"
-      })
-      .catch(err => {this.statusMessage = err.response});
+  postForm = async (form) => {
+    try {
+        const res = await axios.post("http://127.0.0.1:8000/alias/", form);
+        thi.form = res.data;
+    } catch(err){
+        this.statusMessage = err.response
+    }
   }
 ```
 
@@ -92,16 +87,14 @@ Add the `onSubmit` in the form tag
 
 ```javascript
 ...
-this.submission = this.submission.bind(this)
-...
 
-submission(e) {
+submitForm = (e) => {
   e.preventDefault();
   store.postForm(this.state);
 }
 ...
 
-<form onSubmit={e => this.submission(e)}>
+<form onSubmit={this.submitForm}>
 ...
 </form>
 
