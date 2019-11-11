@@ -2,7 +2,16 @@
 
 [Slides](https://docs.google.com/presentation/d/1VNDFN2oIkKLUpKRZ7hkiRjyJTv3d7-Lp6eZJPZn2P5E/edit?usp=sharing)
 
-1.  Clone the [backend](https://github.com/JoinCODED/RJSDemo7-Forms-Backend) and run the server
+
+#### Setup
+
+1. Clone [backend](https://github.com/JoinCODED/RJSDemo8-Forms-Backend) and run the server
+
+2. Virtual Env Setup
+
+   ```shell
+   python3 -m venv demo
+   ```
 
 2. Go to Postman, and make a GET request to the backend to know the name of the expected fields (http://127.0.0.1:8000/alias/)
 
