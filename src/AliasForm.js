@@ -1,12 +1,14 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
 
-function AliasForm() {
-  return (
-    <div>
-      <p className="App-intro">Tell us about yourself:</p>
-    </div>
-  );
+class AliasForm extends Component {
+  render() {
+    return (
+      <div>
+        <p className="App-intro">Tell us about yourself:</p>
+      </div>
+    );
+  }
 }
 
 export default AliasForm;

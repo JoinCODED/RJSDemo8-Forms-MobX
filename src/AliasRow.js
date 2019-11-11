@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-function AliasRow(props) {
+const AliasRow = props => {
   const person = props.person;
   return (
     <tr>
@@ -10,6 +10,6 @@ function AliasRow(props) {
       <td>{person.email}</td>
     </tr>
   );
-}
+};
 
 export default AliasRow;
