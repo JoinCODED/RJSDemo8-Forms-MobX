@@ -3,7 +3,7 @@ import axios from "axios";
 
 class AliasStore {
   aliases = [];
-  statusMessage = "";
+  errors = {};
 
   fetchList = async () => {
     try {
@@ -15,19 +15,21 @@ class AliasStore {
     }
   };
 
-  postForm = async data => {
+  createAlias = async (userData, handleReset) => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/alias/", data);
-      this.aliases.push(res.data);
+      const res = await axios.post("http://127.0.0.1:8000/alias/", userData);
+      const alias = res.data;
+      this.aliases.push(alias);
+      handleReset();
     } catch (err) {
-      console.error(err.response);
+      this.errors = err.response.data;
     }
   };
 }
 
 decorate(AliasStore, {
-  statusMessage: observable,
-  aliases: observable
+  aliases: observable,
+  errors: observable
 });
 
 export default new AliasStore();
