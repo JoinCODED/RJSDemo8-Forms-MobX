@@ -175,3 +175,54 @@ The data should post successfully. Refresh the page. To make the data appear wit
 this.aliases.push(res.data)
 ...
 ```
+
+#### Handling Errors
+
+1. Show `errors.resonse.data` in `reducers/people.js`:
+
+   ```js
+   ...
+       } catch (error) {
+         console.error("Person did not submit!");
+         console.error(error.response.data);
+       }
+   ...
+
+   ```
+
+2. There are many ways we can use this error object. ONE way is with bootstrap:
+
+   ```js
+   <input
+     type="text"
+     className="form-control is-invalid" // <--- very important
+     name="alias"
+     value={this.state.alias}
+     onChange={this.handleChange}
+   />
+   <div className="invalid-feedback">
+     this input is invalid
+   </div>
+   ```
+
+3. Create an error object and use it to conditionally change the class and message:
+
+   ```js
+   ...
+     render() {
+       const errors = {
+         alias: ["the alias is wrong"],
+         description: ["the description is wrong"],
+         email: ["the email is wrong"]
+       };
+       ...
+       <input
+         type="text"
+         className={`form-control ${errors.alias && "is-invalid"}`}
+         name="alias"
+         value={this.state.alias}
+         onChange={this.handleChange}
+       />
+       <div className="invalid-feedback">{errors.alias}</div>
+       ...
+   ```
