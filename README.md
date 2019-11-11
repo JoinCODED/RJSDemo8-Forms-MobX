@@ -176,6 +176,53 @@ this.aliases.push(res.data)
 ...
 ```
 
+1. Two-way bind forms inputs to state:
+   In Dev Tools, show how changing the STATE now changes the form.
+
+   ```javascript
+   ...
+   <input
+     type="text"
+     className="form-control"
+     name="description"
+     value={this.state.description} // This part
+     onChange={this.handleChange}
+   />
+   ...
+   ```
+
+2. Write a `resetForm` method:
+
+   ```javascript
+   ...
+     resetForm = () => this.setState({ alias: "", description: "", email: "" });
+   ...
+   ```
+   
+3. Pass it to the store method to reset on success:
+
+```javascript
+handleSubmit = e => {
+  e.preventDefault();
+  store.postForm(this.state, this.resetForm);
+};
+```
+4. Call it in the method:
+
+```javascript
+postForm = async (form, resetForm) => {
+  try {
+    const res = await axios.post("http://127.0.0.1:8000/alias/", form);
+    console.log("Return value", res.data);
+    this.aliases.push(res.data)
+    resetForm();
+  } catch (err) {
+    this.statusMessage = err.response;
+  }
+};
+```
+
+
 #### Handling Errors
 
 1. Show `errors.resonse.data` in `reducers/people.js`:
