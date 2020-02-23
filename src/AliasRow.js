@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
 
-const AliasRow = props => {
-  const person = props.person;
+const AliasRow = ({ person }) => {
   return (
     <tr>
       <td>{person.alias}</td>
