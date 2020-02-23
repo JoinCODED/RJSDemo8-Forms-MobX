@@ -13,7 +13,6 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <p className="App-intro">Tell us about yourself:</p>
         <AliasForm />
         <AliasList />
       </div>
