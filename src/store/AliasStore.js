@@ -1,34 +1,35 @@
-import { decorate, observable } from "mobx";
+import { observable, decorate } from "mobx";
 import axios from "axios";
 
 class AliasStore {
-  constructor() {
-    this.statusMessage = "";
-    this.aliases = [];
-  }
+  aliases = [];
+  errors = {};
 
   fetchList = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/alias/");
-      this.aliases = res.data;
+      const aliases = res.data;
+      this.aliases = aliases;
     } catch (err) {
-      console.error(err.response);
+      console.error(err);
     }
   };
 
-  postForm = async data => {
+  createAlias = async (userData, handleReset) => {
     try {
-      const res = await axios.post("http://127.0.0.1:8000/alias/", data);
-      this.aliases.push(res.data);
+      const res = await axios.post("http://127.0.0.1:8000/alias/", userData);
+      const alias = res.data;
+      this.aliases.push(alias);
+      handleReset();
     } catch (err) {
-      console.error(err.response);
+      this.errors = err.response.data;
     }
   };
 }
 
 decorate(AliasStore, {
-  statusMessage: observable,
-  aliases: observable
+  aliases: observable,
+  errors: observable
 });
 
 export default new AliasStore();

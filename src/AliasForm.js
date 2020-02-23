@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { observer } from "mobx-react";
 import "./App.css";
 
-import store from "./store/AliasStore";
+import aliasStore from "./store/AliasStore";
 
 class AliasForm extends Component {
   state = {
@@ -10,55 +11,72 @@ class AliasForm extends Component {
     email: ""
   };
 
-  handleChange = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
-  handleSubmit = e => {
-    e.preventDefault();
-    store.postForm(this.state);
+  handleSubmit = event => {
+    event.preventDefault();
+    aliasStore.createAlias(this.state, this.handleReset);
   };
+
+  handleReset = () => this.setState({ alias: "", description: "", email: "" });
 
   render() {
     return (
-      <form onSubmit={e => this.handleSubmit(e)}>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Alias*</span>
+      <div>
+        <p className="App-intro">Tell us about yourself:</p>
+        <p>{aliasStore.statusMessage}</p>
+        <form onSubmit={this.handleSubmit}>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Alias*</span>
+            </div>
+            <input
+              type="text"
+              className={`form-control ${aliasStore.errors.alias &&
+                "is-invalid"}`}
+              name="alias"
+              value={this.state.alias}
+              onChange={this.handleChange}
+            />
+            <div className="invalid-feedback">{aliasStore.errors.alias}</div>
           </div>
-          <input
-            type="text"
-            className="form-control"
-            name="alias"
-            onChange={e => this.handleChange(e)}
-          />
-        </div>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text">Description</span>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Description*</span>
+            </div>
+            <input
+              type="text"
+              className={`form-control ${aliasStore.errors.description &&
+                "is-invalid"}`}
+              name="description"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+            <div className="invalid-feedback">
+              {aliasStore.errors.description}
+            </div>
           </div>
-          <input
-            type="text"
-            className="form-control"
-            name="description"
-            onChange={e => this.handleChange(e)}
-          />
-        </div>
-        <div className="input-group mb-3">
-          <div className="input-group-prepend">
-            <span className="input-group-text">E-Mail*</span>
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">E-Mail*</span>
+            </div>
+            <input
+              type="text"
+              className={`form-control ${aliasStore.errors.email &&
+                "is-invalid"}`}
+              name="email"
+              value={this.state.email}
+              onChange={this.handleChange}
+            />
+            <div className="invalid-feedback">{aliasStore.errors.email}</div>
           </div>
-          <input
-            type="text"
-            className="form-control"
-            name="email"
-            onChange={e => this.handleChange(e)}
-          />
-        </div>
-        <input type="submit" /> <br />
-      </form>
+          <input type="submit" /> <br />
+        </form>
+      </div>
     );
   }
 }
 
-export default AliasForm;
+export default observer(AliasForm);

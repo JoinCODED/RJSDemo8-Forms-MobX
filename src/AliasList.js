@@ -6,11 +6,10 @@ import AliasRow from "./AliasRow";
 
 import { observer } from "mobx-react";
 
-function AliasList() {
-  const aliasRow = aliasStore.aliases.map(person => (
-    <AliasRow key={person.id} person={person} />
+const AliasList = () => {
+  const aliasRows = aliasStore.aliases.map(person => (
+    <AliasRow key={person.alias} person={person} />
   ));
-  console.log(aliasStore.aliases);
   return (
     <div>
       <table className="table">
@@ -21,10 +20,10 @@ function AliasList() {
             <th>EMAIL</th>
           </tr>
         </thead>
-        <tbody>{aliasRow}</tbody>
+        <tbody>{aliasRows}</tbody>
       </table>
     </div>
   );
-}
+};
 
 export default observer(AliasList);

@@ -10,7 +10,6 @@ class App extends Component {
   componentDidMount() {
     aliasStore.fetchList();
   }
-
   render() {
     return (
       <div className="container">
