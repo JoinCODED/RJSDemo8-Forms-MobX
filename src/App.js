@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import aliasStore from "./store/AliasStore";
+import aliasStore from "./store/aliasStore";
 import AliasForm from "./AliasForm";
 import AliasList from "./AliasList";
 

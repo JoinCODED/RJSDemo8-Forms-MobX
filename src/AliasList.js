@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-import aliasStore from "./store/AliasStore";
+import aliasStore from "./store/aliasStore";
 import AliasRow from "./AliasRow";
 
 import { observer } from "mobx-react";
